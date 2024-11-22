@@ -4,3 +4,30 @@ Pick a Java project from Github (see the [instructions](../sujet.md) for suggest
 
 ## Answer
 
+Apache Commons Collections
+
+Vrai positif :
+
+`commons-collections-master/src/main/java/org/apache/commons/collections4/collection/CompositeCollection.java:461: This for loop can be replaced by a foreach loop`
+
+```java
+for (final Iterator<E> it = iterator(); it.hasNext(); i++) {
+    result[i] = it.next();
+}
+```
+
+peut être remplacé par :
+
+```java
+for (E element : this) {
+    result[i++] = element;
+}
+```
+
+Faux positif :
+
+`commons-collections-master/src/main/java/org/apache/commons/collections4/CollectionUtils.java:476: Avoid using implementation types like 'ArrayList'; use the interface instead`
+
+ligne 473 : mergedList.trimToSize();
+
+La méthode trimToSize() est uniquement disponible sur la classe ArrayList et pas sur l'interface List.
